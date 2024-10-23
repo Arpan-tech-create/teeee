@@ -1,0 +1,58 @@
+{    
+    "about":{
+		"Title":"Geo Entity Stats Generation",
+		"Description":"Geo Entity Stats Generation for Configured Parameters",
+		"Divison":"CGDD, VRG, EPSA, SAC",
+		"Author":"Nitin Mishra",
+		"Reviewed By":"Pankaj Bodani",
+		"Maintained By":"Falguni, Nayan"
+    },
+	"global_param":{
+        "database":{
+            "host":"192.168.2.64",
+            "username":"postgres",
+            "password":"Vedas@123",
+            "port":5433,
+            "db":"geoentity_stats",
+            "geoentity_table":"geoentity",
+            "geoentity_stats_table":"geoentity_param_time_stat",
+            "param_table":"parameters",
+            "processing_record_chunk":50000            
+        }        
+    },
+    "config":
+    {
+    	"mapping_type":"entity_mapping",
+		"mapping_keys_for_stats_gen":["SOIDistrict2023","SOITehsil2023"],    		
+		"mapping":{
+    		"entity_mapping":{
+          		"SOIDistrict2023":{
+              		"source_id":3,
+              		"region_prefix_filter":["C91"],
+              		"params":"GSMAP_ISRO_IMDCorrected_Params"
+          		},
+          		"SOITehsil2023":{
+              		"source_id":4,
+              		"region_prefix_filter":["C91"],
+              		"params":"GSMAP_ISRO_IMDCorrected_Params"
+          		}      
+    		}    		
+		},
+		"max_processes":8,
+		"processes_for_param_group":3,
+		"param_template":
+		{    	
+    			"GSMAP_ISRO_IMDCorrected_Params":[					
+					{
+						"param_name":"Rainfall_GSMAP_ISRO_IMDCorrected_1D_FS",
+						"folder_path":"/home/isro/68_data/PROCESSED_DATA_THEMES/T5/T5S3/T5S3P1",
+						"stats":["mean"],
+						"exclude_values_for_stats":[],
+						"update_flag":true,
+						"param_execution_type":"process",
+						"replace_days_range":[0,1]
+					}				
+				]		
+		}	    
+    }    
+}
